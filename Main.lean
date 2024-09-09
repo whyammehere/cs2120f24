@@ -19,6 +19,8 @@ a cool language with both programming and foundational
 verification facilities.
 -/
 
+namespace cs2120f24
+
 def main : IO Unit :=
   IO.println s!"Hello, {hello}!"
 
@@ -35,3 +37,9 @@ You can also compile and run it as an executable.
 See the documentation for the *lake* command of the
 Lean4 system.
 -/
+
+def P_and_Q_absract : PLExpr :=
+  PLExpr.bin_op_expr BinOp.and P Q
+def P_and_O_concrete := P ∧ Q
+
+#reduce truthTableOutputVector (P ∧ Q)
