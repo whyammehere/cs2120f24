@@ -1,4 +1,4 @@
-import «Cs2120f24»
+import «Cs2120f24».Lectures.«02_prop_logic».formal.syntax
 
 /-
 The first thing to do: open Cs2120f24/Demo/Demo.lean,
@@ -22,7 +22,7 @@ verification facilities.
 namespace cs2120f24
 
 def main : IO Unit :=
-  IO.println s!"Hello, {hello}!"
+  IO.println s!"Hi!"
 
 /-
 You can run the main routine right here by using eval.
