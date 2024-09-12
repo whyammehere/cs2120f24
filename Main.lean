@@ -1,60 +1,17 @@
+import «Cs2120f24».Lectures.«02_prop_logic».formal.domain
+import «Cs2120f24».Lectures.«02_prop_logic».formal.identities
+import «Cs2120f24».Lectures.«02_prop_logic».formal.interpretation
+import «Cs2120f24».Lectures.«02_prop_logic».formal.models
 import «Cs2120f24».Lectures.«02_prop_logic».formal.properties
-
-
-namespace cs2120f24
-
-open PLExpr
-
-
-
-/-!
-SYNTAX
--/
-
--- Variables
-def v₀ : BoolVar := BoolVar.mk 0
-def v₁ : BoolVar := ⟨1⟩   -- Lean for structure constructor (mk)
-def v₂ : BoolVar := ⟨2⟩
-
-/-!
-Variable expressions
--/
-def P : PLExpr := PLExpr.var_expr v₀
-def Q : PLExpr := { v₁ }  -- our notation for var_expr constructor
-def R : PLExpr := { v₂ }
+import «Cs2120f24».Lectures.«02_prop_logic».formal.semantics
+import «Cs2120f24».Lectures.«02_prop_logic».formal.syntax
+import «Cs2120f24».Lectures.«02_prop_logic».formal.truth_table
 
 /-
-Operator expression: abstract syntax
--/
-
-def P_and_Q_abstract : PLExpr :=
-  (PLExpr.bin_op_expr BinOp.and P Q)
-
--- Exact same expression using standard notation
-def P_and_Q_concrete := P ∧ Q
-
--- de-sugars to the underlying astract syntax
-#reduce P_and_Q_concrete
-
-
-/-!
-INTERPRETATIONS
-
-The apparent ordering is off, backwards from
-what we'd expect. For now it doesn't matter.
-We've got it on our list of things to fix.
-This example counts the number of variables in
-(P ∧ Q), it's 2, and a list of all 2^2 = 4
-possible interpretations for that expression
-are returned.
--/
-#reduce listListStringFromListInterps
-          (listInterpsFromExpr (P ∧ Q))
-          2
-/-!
-It's often helpful to list arguments
-to functions properly indented across
-multiple lines.
+The first thing to do: open Cs2120f24/Demo/Demo.lean,
+read it, and work through the easy exercises. It will
+help to have been there for Kevin's introduction to all
+this. Feel free to give a holler: sullivan@virginia.edu.
 -/
 
 

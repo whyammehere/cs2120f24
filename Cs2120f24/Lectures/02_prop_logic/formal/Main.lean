@@ -1,6 +1,4 @@
 import «Cs2120f24».Lectures.«02_prop_logic».formal.properties
-
-
 namespace cs2120f24
 
 open PLExpr
@@ -57,9 +55,11 @@ INTERPRETATIONS
 Here's how we can see a list of interpretations
 for a given expressions.
 -/
-#reduce listListStringFromListInterps
+#reduce interpStringsFromInterps
           (listInterpsFromExpr (P ∧ Q ∨ R))
-          3
+          3 -- number of variables here
+
+
 /-!
 It's often helpful to list arguments
 to functions properly indented across
@@ -76,8 +76,8 @@ starting with all true and descending to all
 false. (We have a note to clean this up.)
 -/
 
-#eval! (truthTableOutputVector (P))
-#eval! (truthTableOutputVector (P ∨ Q))
+#eval! (truthTableOutputs (P))
+#eval! (truthTableOutputs (P ∨ Q))
 
 
 /-!
@@ -193,6 +193,8 @@ _________. What is the conclusion? Write the expression in PL.
 
 def p8  : PLExpr := (itsRaining ∨ sprinklerOn) ⇒ (itsRaining ⇒ streetWet) ⇒ (sprinklerOn ⇒ streetWet) ⇒ streetWet
 #eval! is_valid p8
+#eval! is_sat p8
+#eval! is_unsat p8
 
 
 
