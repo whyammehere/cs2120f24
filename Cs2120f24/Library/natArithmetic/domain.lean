@@ -215,6 +215,58 @@ def mul : Nat → Nat → Nat
 | n, (Nat.succ m') => add n (mul n m')
 -- effect is to iterate addition of n to zero m times
 
+
+def pow : Nat → Nat → Nat
+| _, 0 => 1
+| n, (Nat.succ m') => mul n (pow n m')
+
+#eval pow 2 10
+#eval pow 0 0
+
+
+def tet : Nat → Nat → Nat
+| _, 0 => 1
+| n, (Nat.succ m') => pow n (tet n m')
+
+#eval! tet 2 3
+
+
+-- def less_equal : Nat → Nat → Bool
+-- | 0, m => true
+-- | n, 0 => false
+-- | n + 1, m + 1 => less_equal n m
+
+-- #eval less_equal 0 0
+-- #eval less_equal 6 7
+-- #eval less_equal 7 7
+-- #eval less_equal 8 7
+
+
+-- def greater : Nat → Nat → Bool
+-- | n, m => ¬ (less_equal n m)
+
+-- #eval greater 8 7
+-- #eval greater 7 8
+
+
+-- def equal : Nat → Nat → Bool
+-- | 0, 0 => true
+-- | _, 0 => false
+-- | 0, _ => false
+-- | n + 1, m + 1 => equal n m
+
+-- #eval equal 6 6
+-- #eval equal 6 7
+
+
+
+-- def less : Nat → Nat → Bool
+-- | n, m => (less_equal n m) && !(equal n m)
+
+-- def greater_equal : Nat → Nat → Bool
+-- | n, m => !(less n m)
+
+
 /-!
 ### Binary Relations (Boolean Predicate Functions)
 
