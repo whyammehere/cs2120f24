@@ -11,7 +11,7 @@ catch a glance.
 
 /-!
 The sources of propositions on this exam will prominently include those
-in the two files, Library/PropLogic/identities.lean
+in the two files, Library/PropLogic/identities.lean and axioms.lean
 -/
 
 /- #1

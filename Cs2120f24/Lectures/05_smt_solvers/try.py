@@ -28,19 +28,3 @@ def report(e):
 report(p) 
 report(q)
 report(r)
-
-
-
-
-
-
-
-
-C = Int('c')
-D = Int('d')
-E = Int('e')
-val = C + 15*D + 0.25*E
-num = C + D + E
-cats_and_dogs_and_mice = And(C > 0, D > 0, E > 0, val == 100, num == 100)
-
-report(cats_and_dogs_and_mice)
