@@ -7,6 +7,7 @@ def Q := {⟨1⟩}
 def R := {⟨2⟩}
 
 def andIdempotent   := P ↔ (P ∧ P)
+/-(P ⇒ P ∨ P) or (P ∨ P ⇒ P)-/
 def orIdempotent    := P ↔ (P ∨ P)
 
 def andCommutative  := (P ∧ Q) ↔ (Q ∧ P)

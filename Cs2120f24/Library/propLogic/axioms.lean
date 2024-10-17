@@ -21,15 +21,23 @@ def and_elim_right := R ∧ Q ⇒ Q
 def or_intro_left := R ⇒ R ∨ Q
 def or_intro_right :=  Q ⇒ R ∨ Q
 def or_elim := Q ∨ R ⇒ (Q ⇒ P) ⇒ (R ⇒ P) ⇒ P
+/-if we know Q or R is true, then if Q implies P is true, then if R implies P is true, then P is true-/
 
 def not_intro := (R ⇒ ⊥) ⇒ ¬R
 def not_elim := ¬¬R ⇒ R
 
 def imp_intro := R ⇒ P ⇒ (R ⇒ P)
 def imp_elim := (R ⇒ P) ⇒ R ⇒ P
+/-if whenever R is true P is true, and if we know R is true, then we can conclude P is true-/
 
 def equiv_intro := (R ⇒ P) ⇒ (P ⇒ R) ⇒ (R ↔ P)
+/-if R implies P is true and if P implies R is true, then R and P are quivalent is true-/
+/- in reverse: in order to conclude R and P are equivalent, it will suffice that P implies R is true and R implies P is true-/
+
 def equiv_elim_left := (R ↔ P) ⇒ (R ⇒ P)
+/-if we know R and P are equivalent, then R implies P is true-/
+/-if we have a proof of R ↔ P, then we can derive a proof of R ⇒ P-/
+
 def equiv_elim_right := (R ↔ P) ⇒ (P ⇒ R)
 
 def affirm_disjunct := (P ∨ R) ⇒ P ⇒ ¬R
