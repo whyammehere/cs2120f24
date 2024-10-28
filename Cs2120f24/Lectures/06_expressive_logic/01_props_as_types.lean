@@ -43,6 +43,10 @@ inductive C : Type where
 | cvilleDriversLicense
 | cvilleUtilityBill
 
+-- False proposition:
+inductive F : Type where
+
+
 -- later we'll replace these two propositions with one predicate
 -- we can also see here that a proposition can have multiple proofs
 
@@ -54,6 +58,7 @@ open C
 --  proof name  proposition/type    proof/value
 def pfK      : K :=              K.cvilleDriversLicense
 def pfC      : C :=              C.cvilleUtilityBill
+def pfF      : F :=              _ --try to prove false proposition
 
 /-!
 We've introduced no new Lean constructs at this point. We've just
@@ -169,7 +174,7 @@ rules that define the behavior of the logical *And* connective!
 -/
 
 def KandC_elim_left : KandC → K
-| KandC.intro k c => k            -- note: can replace c with _
+| KandC.intro k _ => k            -- note: can replace c with _
 
 def KandC_elim_right : KandC → C
 | KandC.intro _ c => c            -- actually replaced k with _

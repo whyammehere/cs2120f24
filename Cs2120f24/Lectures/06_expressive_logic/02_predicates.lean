@@ -136,6 +136,17 @@ def pfZeroEv : Ev 0 := pfZero
 def pfTwoEv : Ev 2 := pfEvPlus2 0 pfZeroEv
 def pfFourEv : Ev 4 := pfEvPlus2 2 pfTwoEv
 
+def pfSixEv : Ev 6 :=
+  pfEvPlus2
+    (_)
+    (pfEvPlus2
+      (_)
+      (pfEvPlus2
+        (0)
+        (pfZero)
+      )
+    )
+
 /-!
 Why can't we build a proof that 5 is even?
 Well, to do that, we'd need a proof that 3
@@ -195,7 +206,7 @@ def bothFromCville : Type :=
 
 -- we can construct a proof of it using MyAnd.intro
 def pfBothFromCville : bothFromCville :=
-  MyAnd.intro _ _
+  MyAnd.intro pfKevin pfCarter
 
 -- and we can of course also implement elim rules
 
