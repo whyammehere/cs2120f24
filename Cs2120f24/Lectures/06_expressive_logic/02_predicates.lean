@@ -138,14 +138,15 @@ def pfFourEv : Ev 4 := pfEvPlus2 2 pfTwoEv
 
 def pfSixEv : Ev 6 :=
   pfEvPlus2
-    (_)
+    (4)
     (pfEvPlus2
-      (_)
+      (2)
       (pfEvPlus2
         (0)
         (pfZero)
       )
     )
+
 
 /-!
 Why can't we build a proof that 5 is even?
