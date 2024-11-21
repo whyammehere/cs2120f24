@@ -195,8 +195,10 @@ in English as *the set of all balls, b, such that b is striped*, or
 more concisely and naturally simply as *the set of all striped balls*.
 -/
 
-axiom ball : String
-axiom striped : String
+axiom ball : Type
+axiom Striped : ball -> Prop
+
+def striped_ball := {b : ball | Striped b}
 
 /-!
 ### Aside On Homogeneity
