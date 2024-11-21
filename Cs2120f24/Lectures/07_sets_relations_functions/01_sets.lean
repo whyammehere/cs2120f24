@@ -126,7 +126,9 @@ proof development to complete this simple proof. We give you the
 or introduction on the right to start.
 -/
 
-example : small 1 := (Or.inr (_))
+example: small 1 := (Or.inr (Or.inl rfl))
+
+example: small 3 := (Or.inr (Or.inr (Or.inr (Or.inl rfl))))
 
 /-!
 ### Set Theory Notation
@@ -180,6 +182,11 @@ You can check that this set, s2, has the same membership predicate as s1.
 
 #reduce s2
 
+def noNat: Set Nat := {n : Nat | False}
+def allNat : Set Nat := {n : Nat | True}
+
+example: 3 ∈ noNat := _
+
 /-!
 Example: Assume there's a type of objects call Ball and a predicate,
 Striped, on balls. Use set comprehension notation to specify the set of
@@ -187,6 +194,9 @@ striped balls. Answer: { b : Ball | Striped b }. Read this expression
 in English as *the set of all balls, b, such that b is striped*, or
 more concisely and naturally simply as *the set of all striped balls*.
 -/
+
+axiom ball : String
+axiom striped : String
 
 /-!
 ### Aside On Homogeneity
