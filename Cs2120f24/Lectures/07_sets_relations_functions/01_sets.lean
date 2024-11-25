@@ -265,7 +265,7 @@ in the language of predicate logic (as implemented in Lean), on the other.
 | subset        | s ⊆ t     | ∀ a, a ∈ s → a ∈ t  ...   | fun a => (s a) → (t a)         |
 | proper subset | s ⊊ t     | ... ∧ ∃ w, w ∈ t ∧ w ∉ s  | ... ∧ ∃ w, (t w) ∧ ¬(s w)      |
 | product set   | s × t     | { (a,b) | a ∈ s ∧ b ∈ t } | fun (a, b) => (s a) /\ (t b)   |
-| powerset      | 𝒫 s       | { t \| t ⊆ s }            | fun t => ∀ ⦃a : ℕ⦄, t a → s a  |
+| powerset      | 𝒫 s       | { t | t ⊆ s }            | fun t => ∀ ⦃a : ℕ⦄, t a → s a  |
 -/
 
 #reduce Set.inter
