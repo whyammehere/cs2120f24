@@ -9,8 +9,7 @@ def R := {⟨2⟩}
 
 -- Here are fundamental *equivalences* in propositional logic
 
-def andIdempotent   := P ↔ (P ∧ P)
-/-(P ⇒ P ∨ P) or (P ∨ P ⇒ P)-/
+def andIdempotent   := P ↔ (P ∧ ¬ P)
 def orIdempotent    := P ↔ (P ∨ P)
 
 def andCommutative  := (P ∧ Q) ↔ (Q ∧ P)

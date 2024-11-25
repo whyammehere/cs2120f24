@@ -204,6 +204,9 @@ of type *Set Nat*. It type-checks! Sets truly are specified by
 and equated with their membership predicates in Lean.
 -/
 
+def ev := λ n : Nat => n % 2 = 0
+def small := λ n : Nat => n = 0 ∨ n = 1 ∨ n = 2 ∨ n = 3 ∨ n = 4
+
 
 def ev_set' : Set Nat := ev         -- ev is a predicate
 def small_set' : Set Nat := small   -- small is too
@@ -290,8 +293,6 @@ can be understood as specifying the set of even numbers; the second
 predicate, a set of small numbers.
 -/
 
-def ev := λ n : Nat => n % 2 = 0
-def small := λ n : Nat => n = 0 ∨ n = 1 ∨ n = 2 ∨ n = 3 ∨ n = 4
 
 /-!
 Self test: What *proposition* is specified by the expression,
