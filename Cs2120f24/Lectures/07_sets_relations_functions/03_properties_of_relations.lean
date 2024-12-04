@@ -23,6 +23,10 @@ The property of relating every every pair of values
 def isComplete {α β : Type} : Rel α β → Prop :=
   fun r => ∀ x y, r x y
 
+def natCompleteRel : Rel Nat Nat := fun a b => True
+example : isComplete natCompleteRel :=
+  fun a b => True.intro
+
 /-
 The property of relating every input to some output
 -/
