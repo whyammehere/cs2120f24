@@ -1,3 +1,5 @@
+import Mathlib.Tactic.Ring
+
 /-!
 # Induction
 
@@ -333,7 +335,7 @@ to compute this sum. It's by recursion, of course.
 
 def sumToN : Nat → Nat
 | Nat.zero  => 0
-| (n' + 1) => (n' + 1) + sumToN n'
+| (n' + 1) => sumToN n' + (n' + 1)
 
 example : sumToN 0 = 0 := rfl
 example : sumToN 5 = 15 := rfl
@@ -344,13 +346,13 @@ Now we can formally define the property we will claim
 every natural number has.
 -/
 
-def sumToNProp (n : Nat) := 2 * sumToN n = n * (n + 1)
+def sumToNProp (n : Nat) := 2 * sumToN n = n * (n.succ)
 
 /-
 Next we can state the universal generalization we want.
 -/
 
-def sumToNPropAll := ∀ (n : Nat), sumToNProp n
+def sumToNPropAll := (∀ (n : Nat), sumToNProp n)
 
 /-
 And now we can prove it, by induction. For this we will
@@ -419,25 +421,109 @@ We can rewrite the left side as follows:
 - (n'^2 + n' + 2n' + 2) / 2
 - (n'^2 + 3n' + 2) / 2
 - (n' + 1)(n' + 2) / 2
-- (n' + 1)((n' + 1) + 2) /2
+- (n' + 1)((n' + 1) + 1) /2
 
-
-
-But what is sumToN'? Well, it's 0 + ... + n'.
-And we've assumed we know that this is equal to
-n' * (n' + 1) / 2. Now we want a proof that the
-same property holds for n'+1. That is, we want a
-proof that sumToN (n'+1) = (n'+1) * ((n'+1) + 1)/2.
-What's on the left? One way to look at it is that
-it's 0 + ... + n' + (n' + 1).
-
-
- what do
-we have? Well, n' is a natural number greater than
-zero and It's a proof of sumToN n' =
+That's it. We've provided a proof for n = 0,
+and we've proved, right here, that, for any n',
+if sumToN n' = n'*(n'+1)/2, then sumToN (n'+1)
+= (n'+1)*((n'+1)+1)/2, and that is all we need
+to apply the principle of induction for natural
+number arguments and we're done!
 -/
+
+/-!
+A key to this proof was the observation that we can
+write (sumToProp n'+1) as (sumToProp n') + (n'+1).
+That's critical because the induction hypothesis
+THEN gives us a way to rewrite (sumToProp n') as
+n' * (n' + 1) / 2. Once we do that, the rest of
+the proof is just algebra. So to ease the task of
+writing the proof, let's prove that we can always
+rewrite sumToN (n'+1) as (sumTo n') + n'+1. The
+proof is simply by the definition of sumToN. Go
+look at its definition; you'll see.
+-/
+
+def pf (n : Nat) : sumToN (n.succ) = (sumToN n) + (n.succ) :=
+-- true by the definition of sumToN
+-- see the the second rule for computing this function
+by simp [sumToN]
+
+/-!
+Now we see how to define the step function. Here
+is a formal definition in Lean.
+-/
+
+def sumStep :
+      ∀ (n' : Nat),
+      (h : sumToNProp n') →
+      sumToNProp (n'+1) :=
+      -- assume n' is arbitrary
+      -- and induction hpothesis, h: that n' has the property
+(fun (n' : Nat) (h : sumToNProp n') =>
+    -- in this context prove sumToNProp (n'+1): that n'+1 does too
+  -- note: the rest of the proof is in tactic mode
+  -- open Lean infoview (CTRL/CMD-SHIFT ENTER) and step through!
+  (by
+    -- unfold definition of sumToNProp in goal
+    unfold sumToNProp
+
+    -- use pf above to rewrite (sumToN n'.succ) in goal
+    rw [pf]
+
+    -- distribute multiplication by 2 in goal
+    rw [Nat.left_distrib]
+
+    -- rewrite (sumToN n') using induction hypothesis (!!!)
+    rw [h]
+
+    -- simplify the goal a little using basic algebra
+    simp []
+
+    -- use axioms of arithmetic with + and * to simplify both sides
+    ring
+    -- the result is an equality, which ring handles with rfl
+    -- QED.
+  )
+)
 
 
 /-
-The step fui function
+Here then is a final proof in Lean for what we
+have already proved by hand / in English, by the
+explicit application of the induction axiom for
+Nat.
 -/
+def pfSumToNPropAll : sumToNPropAll :=
+@Nat.rec      -- apply induction
+  _           -- type of proof (inferred)
+  sumZero     -- proof for base case, Nat.zero
+  sumStep     -- proof buider, for case Nat.succ
+
+-- That's it! pfSumToNPropAll will now give a proof for any n
+-- Here's one for n = 13, for example
+#check pfSumToNPropAll 13
+
+
+/-
+Here's some nicer syntax for the same proof by induction
+-/
+example : sumToNPropAll :=
+-- again in tactic mode
+-- open infoView (CMD/CTRL-SHIFT-ENTER/RETURN)
+-- then step through proof script one line at a time
+(by
+  -- by the definition of sumToNPropAll
+  unfold sumToNPropAll
+  -- we are to prove ∀ (n : ℕ), sumToNProp n
+  -- start by assuming n is an arbitrary Nat
+  intro n
+  -- complete proof by induction
+  induction n with
+    -- case for n := Nat.zero
+    | zero => exact rfl
+    -- assuming n and proof for n
+    -- given n and proof, ih, for n, produce proof for n+1
+    -- this is exactly what our step function, sumStep, does
+    | succ n ih => exact (sumStep n ih)
+)
